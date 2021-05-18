@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Photo } from './interfaces/photo';
 
@@ -7,7 +7,24 @@ import { Photo } from './interfaces/photo';
   templateUrl: './photo-board.component.html',
   styleUrls: ['./photo-board.component.scss']
 })
-export class PhotoBoardComponent {
+export class PhotoBoardComponent implements OnChanges {
   @Input() photos: Photo[];
   rows: any[][] = [];
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.photos) {
+      this.rows = this.groupColumns(changes.photos.currentValue);
+    }
+  }
+
+  private groupColumns(photos: Photo[]): any[][] {
+    const newRows = [];
+    const step = 4;
+
+    for (let index = 0; index < photos.length; index += step) {
+      newRows.push(photos.slice(index, index + step));
+    }
+
+    return newRows;
+  }
 }
