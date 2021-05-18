@@ -9,7 +9,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 })
 export class PhotoFrameComponent implements OnInit, OnDestroy {
   private debounceSubject: Subject<void> = new Subject();
-  private unsubscribe: Subject<void> = new Subject;
+  private unsubscribe: Subject<void> = new Subject();
 
   @Input() description = '';
   @Input() src = '';
